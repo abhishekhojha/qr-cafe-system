@@ -8,7 +8,7 @@ const priceHistorySchema = new mongoose.Schema({
 
 const ingredientSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
-  unit: { type: String, enum: ['g', 'l', 'pcs'], required: true },
+  unit: { type: String, enum: ['gm', 'ml', 'pcs'], required: true },
   stock: { type: Number, default: 0 },
   priceHistory: [priceHistorySchema]
 });

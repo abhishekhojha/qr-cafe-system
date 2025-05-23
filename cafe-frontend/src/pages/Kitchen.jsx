@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import axios from "axios";
+import axios from "../api";
 import { Button } from "@/components/ui/button";
 
 export default function Kitchen() {

@@ -37,3 +37,23 @@ exports.getIngredients = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.addStock = async (req, res) => {
+  try {
+    const { quantity, pricePerUnit } = req.body;
+    const ingredient = await Ingredient.findById(req.params.id);
+    if (!ingredient) return res.status(404).json({ error: "Ingredient not found" });
+
+    ingredient.stock += quantity;
+    ingredient.priceHistory.push({
+      quantity,
+      pricePerUnit,
+      addedAt: new Date()
+    });
+
+    await ingredient.save();
+    res.json(ingredient);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
