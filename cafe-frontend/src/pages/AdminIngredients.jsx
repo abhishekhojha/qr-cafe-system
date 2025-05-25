@@ -12,21 +12,21 @@ export default function AdminIngredients() {
 
   const fetchIngredients = async () => {
     const res = await axios.get("/ingredients");
-    console.log(res.data);
-    // setIngredients(res.data);
+    // console.log(res.data);
+    setIngredients(res.data);
   };
 
   useEffect(() => { fetchIngredients(); }, []);
 
   const addIngredient = async () => {
-    await axios.post("/api/ingredients", newIngredient);
+    await axios.post("/ingredients/add", newIngredient);
     setNewIngredient({ name: "", unit: "gm" });
     fetchIngredients();
   };
 
   const addStock = async (id) => {
     const { quantity, pricePerUnit } = stockInputs[id];
-    await axios.put(`/api/ingredients/${id}/add-stock`, { quantity: +quantity, pricePerUnit: +pricePerUnit });
+    await axios.put(`/ingredients/${id}/add-stock`, { quantity: +quantity, pricePerUnit: +pricePerUnit });
     setStockInputs((prev) => ({ ...prev, [id]: { quantity: "", pricePerUnit: "" } }));
     fetchIngredients();
   };
@@ -50,8 +50,8 @@ export default function AdminIngredients() {
           >
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="g">gm</SelectItem>
-              <SelectItem value="l">ml</SelectItem>
+              <SelectItem value="gm">gm</SelectItem>
+              <SelectItem value="ml">ml</SelectItem>
               <SelectItem value="pcs">pcs</SelectItem>
             </SelectContent>
           </Select>

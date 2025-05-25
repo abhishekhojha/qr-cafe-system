@@ -22,7 +22,7 @@ const ingredientRoutes = require('./routes/ingredientRoutes');
 app.use('/api/ingredients', ingredientRoutes);
 
 const menuItemRoutes = require('./routes/menuItemRoutes');
-app.use('/api/menu-items', menuItemRoutes);
+app.use('/api/menu', menuItemRoutes);
 
 const orderRoutes = require('./routes/orderRoutes');
 app.use('/api/orders', orderRoutes);
@@ -30,6 +30,14 @@ app.use('/api/orders', orderRoutes);
 const settingsRoutes = require('./routes/settingsRoutes');
 app.use('/api/settings', settingsRoutes);
 
+const verifyFirebaseToken = require("./middleware/auth");
+
+app.post("/api/protected-route", verifyFirebaseToken, (req, res) => {
+  res.json({ message: "Access granted", user: req.user });
+});
+
+const paymentRoutes = require("./routes/paymentRoutes");
+app.use("/api", paymentRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

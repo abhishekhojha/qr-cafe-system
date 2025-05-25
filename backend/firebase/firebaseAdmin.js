@@ -14,7 +14,7 @@ admin.initializeApp({
     clientX509CertUrl: process.env.GOOGLE_CLIENT_CERT_URL,
   }),
 });
-
-const db = admin.firestore();
-
-module.exports = { admin, db };
+// const db = admin.firestore();
+const db = admin;
+module.exports = { db:db.firestore() };
+module.exports = admin

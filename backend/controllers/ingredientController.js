@@ -3,7 +3,7 @@ const Ingredient = require('../models/Ingredient');
 // Add new ingredient or stock to existing one
 exports.addIngredient = async (req, res) => {
   try {
-    const { name, unit, quantity, pricePerUnit } = req.body;
+    const { name, unit } = req.body;
 
     let ingredient = await Ingredient.findOne({ name });
 
@@ -11,9 +11,7 @@ exports.addIngredient = async (req, res) => {
       // Create new ingredient
       ingredient = new Ingredient({
         name,
-        unit,
-        stock: quantity,
-        priceHistory: [{ quantity, pricePerUnit }]
+        unit
       });
     } else {
       // Update existing ingredient
